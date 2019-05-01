@@ -1,0 +1,123 @@
+---
+title: "Lab 6 Report"
+author: "Alejandro Garcia and Ramon Laborda"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This is the report made in vignette for lab 6 of Advanced R programming. The content is of this lab has been.
+
+- Brute force knapsack problem
+- Dynamic approach knapsack problem
+- Greedy approach knapsack problem
+- Test creation for dynamic approach
+- Optimization of approaches
+
+## Knapsack problem
+
+The knapsack problem or rucksack problem is a problem in combinatorial optimization: Given a set of items, each with a weight and a value, determine the number of each item to include in a collection so that the total weight is less than or equal to a given limit and the total value is as large as possible. It derives its name from the problem faced by someone who is constrained by a fixed-size knapsack and must fill it with the most valuable items.
+
+Reference: https://en.wikipedia.org/wiki/Knapsack_problem
+
+## Tests
+
+To evaluate the functions implemented during this project, the following object has been created with the seed 42.
+
+```{r eval=FALSE}
+set.seed(42)
+n <- 2000
+knapsack_objects <- data.frame(
+  w=sample(1:4000, size = n, replace = TRUE),
+  v=runif(n = n, 0, 10000)
+)
+```
+
+## Brute force solution
+
+The knapsack problem has a lot of approaches to be solved, the only solution that is guaranteed to give a correct answer in all situations for the knapsack problem
+is using brute-force search, i.e. going through all possible alternatives and return the maximum value found. This approach is of complexity $O(2n)$ since all possible combinations 2n needs to be evaluated.
+
+The function implemented need of two parameters:
+
+- x which is a data.frame with:
+    - w weights of items
+    - v values of items
+- W maximum value of weight
+
+It is possible to run the function with the following:
+
+```{r eval=FALSE}
+brute_force_knapsack(x = knapsack_objects[1:16,], W = 3500)
+```
+
+This example takes 0.05 seconds to execute.
+
+## Brute force parallel solution
+
+In order to execute the function faster, we have implemented a parallel version of the brute force algorithm, to use it is that simple as put a parallel = TRUE in the function variable.
+
+```{r eval=FALSE}
+brute_force_knapsack_parallel(x = knapsack_objects[1:16,], W = 3500, parallel = TRUE)
+```
+
+## Dynamic algorithm solution
+
+Another approach for the solution of the knapsack problem is with dynamic programming. It can solve the problem in pseudo-polynomial time so it is of complexity $O(nW)$. This function has the same parameters as the brute force.
+
+```{r eval=FALSE}
+knapsack_dynamic(x = knapsack_objects[1:16,], W = 3500)
+```
+
+
+## Greedy algorithm solution
+
+The greedy solution is the most efficient one, specially with large number of items. The complexity of this algorithm is of $O(nlog(n))$, so is the fastest one of the three. This function has the same parameters as the brute force.
+
+
+```{r eval=FALSE}
+greedy_knapsack(x = knapsack_objects[1:16,], W = 3500)
+```
+
+There is also an improved version of the greedy algorithm where it is possible to get a better solution with a little bit more of time.
+
+```{r eval=FALSE}
+greedy_knapsack_improved(x = knapsack_objects[1:16,], W = 3500)
+```
+
+## Benchmark
+
+In order to see how these functions work, we evaluated them with a benchmark.
+
+```{r eval = FALSE}
+library(microbenchmark)
+set.seed(42)
+n <- 2000
+knapsack_objects <- data.frame(
+  w=sample(1:4000, size = n, replace = TRUE),
+  v=runif(n = n, 0, 10000)
+)
+
+
+
+microbenchmark(
+  "Brute Normal" = brute_force_knapsack(x = knapsack_objects[1:16,], W = 3500),
+  "Dynamic" = knapsack_dynamic(x = knapsack_objects[1:500,], W = 3500),
+  "Greedy" = greedy_knapsack(x = knapsack_objects[1:1000000,], W = 3500),
+  times = 1
+)
+
+
+Unit: milliseconds
+         expr        min         lq       mean     median         uq        max neval
+ Brute Normal   13.14186   13.14186   13.14186   13.14186   13.14186   13.14186     1
+      Dynamic 6488.38793 6488.38793 6488.38793 6488.38793 6488.38793 6488.38793     1
+       Greedy 1208.93595 1208.93595 1208.93595 1208.93595 1208.93595 1208.93595     1
+
+
+
+````   
+

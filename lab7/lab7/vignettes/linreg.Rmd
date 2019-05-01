@@ -1,0 +1,67 @@
+---
+title: "Linear Regression"
+author: "Alejandro Garcia and Ramon Laborda"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This vignette documents the content provided in the package lab4. This vignette is a high-level adjunct to the low-level details found in *?linreg*, *?plot.linreg*, *?print.linreg*, *?is.linreg* and *?summary.linreg*. You’ll learn how to work with linear Regression by creating a new object of class *linreg* with S3 class and using methods such as *print()*, *plot()* or *summary()*.
+
+## Creating an object of class linreg
+
+### Class linreg
+
+The key content in our package is the class linreg. This class is designed for dealing with linear regression models using QR decomposition method. It is organized the following way:
+  
+  - **Attributes**
+  
+  Attribute name | Description    
+---------------|-----------------------------
+coefficients   | vector of coefficients
+predicted      | vector of predicted values
+residuals      | vector of residuals  
+
+- **Basic methods**
+  
+  Method name  | Description    
+-------------|-------------------------------------------
+coef.linreg  | returns the vector of residuals e
+pred         | returns the predicted values y
+resid.linreg | return the coefficients as a named vector 
+
+## Other useful methods of class linreg
+
+In addition to the basic statistic methods that **linreg** provides, there are available other three different methods: *print()*, *plot()* and *summary()*. These methods override the conventional functions with identical name when an object of class *linreg* is passed as an argument.
+
+### print() function
+
+This is an *ad hoc* version of the ordinary *print()* function. It prints out the coefficients and coefficient names, similar as done by the *lm* class.
+
+```{r print.linreg, eval=FALSE}
+object_linreg <- linreg(Sepal.Length ~ Sepal.Width, iris)
+print(object_linreg)
+```
+
+### plot() function
+
+This is an *ad hoc* version of the generic *plot()* function. It plots graphs using *ggplot2*.
+
+```{r plot.linreg, eval=FALSE}
+object_linreg <- linreg(Sepal.Length ~ Sepal.Width, iris)
+plot(object_linreg)
+plot(object_linreg, standarized_residuals = TRUE)
+```
+
+
+### summary() function
+
+This is an *ad hoc* version of the basic *summary()* function. It returns a similar printout as printed for *lm* objects, but only with the coefficients with their standard error, t-value and p-value as well as the estimate of *sigma* and the degrees of freedom in the model.
+
+```{r summary.linreg, eval=FALSE}
+object_linreg <- linreg(Sepal.Length ~ Sepal.Width, iris)
+summary(object_linreg)
+```

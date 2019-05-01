@@ -1,0 +1,15 @@
+Package: lab6
+Type: Package
+Title: Knapstack problem solution approaches
+Version: 1.0
+Date: 2017-09-28
+Author: Alejandro Garcia and Ramon Laborda
+Maintainer: Alejandro Garcia <alega695@student.liu.se>
+Description: This package contains three approaches on how to solve the Knapstack problem. The different solutions contempled are: Brute force, dynamic and greedy.
+License: GPL-2
+Depends: parallel, combinat
+Suggests: knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr
+RoxygenNote: 6.0.1

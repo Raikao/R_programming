@@ -1,0 +1,15 @@
+Package: lab4
+Type: Package
+Title: Linear regression
+Version: 1.0
+Date: 2017-09-18
+Author: Alejandro Garcia and Ramon Laborda
+Maintainer: Alejandro Garcia <alega695@student.liu.se>
+Description: This packages is a lab from the Advance R Programming course.
+License: GPL-2
+RoxygenNote: 6.0.1
+Depends: ggplot2
+Suggests: testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

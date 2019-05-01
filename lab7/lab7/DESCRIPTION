@@ -1,0 +1,28 @@
+Package: lab7
+Type: Package
+Title: Ridge Regression package
+Version: 1.0
+Date: 2017-10-09
+Author: Alejandro Garcia and Ramon Laborda
+Maintainer: Alejandro Garcia <alega695@student.liu.se>
+Description: More about what it does (maybe more than one line)
+License: GPL-2
+LazyData: true
+RoxygenNote: 6.0.1
+Depends:R (>= 3.4.1), ggplot2, mlbench, magrittr
+Imports:
+    digest,
+    devtools,
+    plotly,
+    stats,
+    MASS,
+    methods,
+    maps,
+    nycflights13,
+    caret,
+    dplyr,
+    tidyr
+Suggests: testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
